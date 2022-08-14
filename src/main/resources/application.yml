@@ -2,6 +2,22 @@ spring:
   mvc:
     converters: # 指定message convert为gson
       preferred-json-mapper: gson # gson | jackson |jsonb
+  gson: # 配置Gson相关，注意由于本系统在WebMvcConfig中配置，下列配置可能不生效
+    date-format: yyyy-MM-dd HH:mm:ss
+    disable-html-escaping: false          # Whether to disable the escaping of HTML characters such as '<', '>', etc. # Naming policy :someFieldName —> SomeFieldName
+    field-naming-policy: upper_camel_case # Naming policy :someFieldName —> SomeFieldName
+    serialize-nulls: false                # Whether to serialize null fields.
+    enable-complex-map-key-serialization: true # Whether to enable serialization of complex map keys
+    disable-inner-class-serialization: true # Whether to exclude inner classes during serialization.
   messages:
     basename: i18n/messages # 国际化文件配置
+  config:
+    use-legacy-processing: false # Spring Boot 2.4.0后进行了配置读取升级，如果想使用以前的这里设置为true ,注此方法可能不适应高版本
 
+  profiles:
+    active: dev
+    group:
+      dev:
+        - datasource-mysql
+        - mybatis
+      normal: # 轻量级只包含web

@@ -1,0 +1,8 @@
+# 配置mybatis根据需要选择
+mybatis:
+  # config-location: classpath:mybatis/mybatis-config.xml
+  # mapper-locations: classpath:mybatis/mapper/*.xml
+  #  type-aliases-package: com.xinchen.project.core.entity
+  configuration: # https://mybatis.org/mybatis-3/zh/configuration.html
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #mybatis日志
+    map-underscore-to-camel-case: true # 是否开启驼峰命名自动映射，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn。
