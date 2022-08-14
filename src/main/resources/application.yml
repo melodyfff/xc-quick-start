@@ -1,0 +1,7 @@
+spring:
+  mvc:
+    converters: # 指定message convert为gson
+      preferred-json-mapper: gson # gson | jackson |jsonb
+  messages:
+    basename: i18n/messages # 国际化文件配置
+
