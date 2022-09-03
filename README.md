@@ -18,6 +18,7 @@ The following guides illustrate how to use some features concretely:
 - 针对`webmvc`的单元测试
 - 序列化统一为Gson
 - 增加Mybatis支持
+- 增加HBase支持
 
 #### 国际化部分
 请求中通过`Header`中的 `Accept-Language` 改变语言, 观察`resources/i18n`,以及 `application.yml`中的配置以实现国际化

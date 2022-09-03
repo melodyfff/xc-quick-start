@@ -5,9 +5,8 @@ import com.xinchen.project.core.orm.mybatis.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.ActiveProfiles;
 
-import javax.persistence.Table;
 
 /**
  * @author Xin Chen (xinchenmelody@gmail.com)
@@ -15,6 +14,7 @@ import javax.persistence.Table;
  * @date Created In 2022/8/14 20:28
  */
 @SpringBootTest
+@ActiveProfiles("dev")
 public class MybatisTests {
 
     @Autowired

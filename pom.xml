@@ -18,6 +18,8 @@
 
   <properties>
     <java.version>11</java.version>
+    <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+    <tk.mybatis.version>4.2.1</tk.mybatis.version>
   </properties>
 
   <dependencies>
@@ -33,22 +35,34 @@
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
-      <version>2.2.2</version>
+      <version>${mybatis-spring-boot-starter.version}</version>
     </dependency>
     <dependency>
       <groupId>tk.mybatis</groupId>
       <artifactId>mapper-spring-boot-starter</artifactId>
-      <version>4.2.1</version>
+      <version>${tk.mybatis.version}</version>
     </dependency>
     <dependency>
       <groupId>tk.mybatis</groupId>
       <artifactId>mapper</artifactId>
-      <version>4.2.1</version>
+      <version>${tk.mybatis.version}</version>
     </dependency>
 
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-client</artifactId>
+      <version>2.5.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-reload4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

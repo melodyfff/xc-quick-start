@@ -15,9 +15,11 @@ spring:
     use-legacy-processing: false # Spring Boot 2.4.0后进行了配置读取升级，如果想使用以前的这里设置为true ,注此方法可能不适应高版本
 
   profiles:
-    active: dev
+    active: normal
     group:
       dev:
         - datasource-mysql
         - mybatis
+      hbase:
+        - hbase
       normal: # 轻量级只包含web
