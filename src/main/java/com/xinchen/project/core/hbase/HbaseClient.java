@@ -38,6 +38,9 @@ import java.util.NavigableMap;
 /**
  * HbaseClient 封装
  *
+ * {@link Connection}是线程安全的，而{@link Table}和{@link Admin}则不是线程安全的
+ * 因此正确的做法是一个进程共用一个{@link Connection}对象，而在不同的线程中使用单独的{@link Table}和{@link Admin}对象。
+ *
  * @author Xin Chen (xinchenmelody@gmail.com)
  * @version 1.0
  * @date Created In 2022/9/3 21:05
@@ -55,7 +58,7 @@ public class HbaseClient {
     }
 
     @PostConstruct
-    private void init() {
+    public void init() {
         if (null != connection) {
             return;
         }
@@ -96,6 +99,29 @@ public class HbaseClient {
         TableDescriptor tableDescriptor = descriptorBuilder.build();
         try (Admin admin = connection.getAdmin()){
             admin.createTable(tableDescriptor);
+        }
+    }
+
+    public void modifyTable(String tableName, String[] columnFamilies) throws IOException {
+        boolean isExists = this.tableExists(tableName);
+        if (!isExists) {
+            throw new TableExistsException(tableName + "is not exists!");
+        }
+
+        TableName name = TableName.valueOf(tableName);
+
+        TableDescriptorBuilder descriptorBuilder = TableDescriptorBuilder.newBuilder(name);
+        List<ColumnFamilyDescriptor> columnFamilyList = new ArrayList<>();
+        for (String columnFamily : columnFamilies) {
+            ColumnFamilyDescriptor columnFamilyDescriptor = ColumnFamilyDescriptorBuilder.newBuilder(columnFamily.getBytes()).build();
+            columnFamilyList.add(columnFamilyDescriptor);
+        }
+        descriptorBuilder.setColumnFamilies(columnFamilyList);
+        TableDescriptor tableDescriptor = descriptorBuilder.build();
+        try (Admin admin = connection.getAdmin()){
+            admin.disableTable(name);
+            admin.modifyTable(tableDescriptor);
+            admin.enableTable(name);
         }
     }
 
@@ -170,7 +196,6 @@ public class HbaseClient {
         } finally {
             try {
                 table.close();
-                connection.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -182,12 +207,13 @@ public class HbaseClient {
         Table table = connection.getTable(TableName.valueOf(tableName));
         Get get = new Get(rowKey.getBytes());
         Result result = table.get(get);
+        output(result);
         NavigableMap<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> map = result.getMap();
         for (Cell cell : result.rawCells()) {
-            String row = Bytes.toString(cell.getRowArray());
-            String columnFamily = Bytes.toString(cell.getFamilyArray());
-            String column = Bytes.toString(cell.getQualifierArray());
-            String value = Bytes.toString(cell.getValueArray());
+            String row = Bytes.toString(cell.getRowArray(),cell.getRowOffset(),cell.getRowLength());
+            String columnFamily = Bytes.toString(cell.getFamilyArray(),cell.getFamilyOffset(),cell.getFamilyLength());
+            String column = Bytes.toString(cell.getQualifierArray(),cell.getQualifierOffset(),cell.getQualifierLength());
+            String value = Bytes.toString(cell.getValueArray(),cell.getValueOffset(),cell.getValueLength());
 
             // 可以通过反射封装成对象(列名和Java属性保持一致)
             System.out.println(row);
@@ -210,9 +236,10 @@ public class HbaseClient {
 
         try {
             for (Result result : scanner) {
-                System.out.println(Bytes.toString(result.getRow()));
+                System.out.format("row is: %s\n",Bytes.toString(result.getRow()));
                 for (Cell cell : result.rawCells()) {
-                    System.out.println(cell);
+
+                    System.out.format("cell is: %s\n",cell);
                 }
             }
         } finally {
@@ -256,15 +283,16 @@ public class HbaseClient {
      */
     public boolean tableExists(String tableName) throws IOException {
        try (Admin admin = connection.getAdmin()){
-           TableName[] tableNames = admin.listTableNames();
-           if (tableNames != null && tableNames.length > 0) {
-               for (TableName name : tableNames) {
-                   if (tableName.equals(name.getNameAsString())) {
-                       return true;
-                   }
-               }
-           }
-           return false;
+           return admin.tableExists(TableName.valueOf(tableName));
+//           TableName[] tableNames = admin.listTableNames();
+//           if (tableNames != null && tableNames.length > 0) {
+//               for (TableName name : tableNames) {
+//                   if (tableName.equals(name.getNameAsString())) {
+//                       return true;
+//                   }
+//               }
+//           }
+//           return false;
        }
     }
 }

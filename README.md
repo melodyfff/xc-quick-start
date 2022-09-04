@@ -26,5 +26,20 @@ The following guides illustrate how to use some features concretely:
 Accept-Language: en-US,en;q=0.9
 Accept-Language: zh-CN,zh;q=0.9
 ```
+
+#### Hbase部署测试
+**Hbase启动**
+```bash
+# 注意16000为master默认端口，不放开则报错 Connection refused: no further information: localhost/127.0.0.1:16000
+# 外部访问需要将该容器ID 添加到本地hosts映射： 127.0.0.1 505e3aeb3d42
+docker run -d --name hbase -p 2181:2181 -p 16010:16010 -p 16020:16020 -p 16030:16030 -p 16000:16000 harisekhon/hbase
+```
+
 ### Reference Documentation
+
+#### Hbase
+[Hbase 中文文档](http://www.hbase.org.cn/)  
+[docker搭建hbase环境](https://blog.csdn.net/feinifi/article/details/121174846)  
+[一文说清HBase Connection的使用](https://www.cnblogs.com/leojie/p/15023182.html)
+
 

@@ -5,7 +5,10 @@ hbase:
     hbase.zookeeper.quorum: 192.168.244.128:2181 # 集群配置用 ‘,’ 隔开
 #    hbase.zookeeper.property.clientPort: 2181
     hbase.zookeeper.znode.parent: /hbase # unsecure，zookeeper2.7.6之前连接不用验证，之后得加这个验证不然会有asal报错提示
-    hbase.master: 192.168.244.128:60001 # HBase的Master
+
+    #以下配置未完全证实可生效  可配置参数参考 org.apache.hadoop.hbase.HConstants
+    hbase.masters: 192.168.244.128:16000 # Configuration key for the list of master host:ports
+    hbase.master.port: 16000 # HBase的Master
     hbase.rpc.timeout: 60000 # HBase rpc请求超时时间，默认60000
     hbase.client.retries.number: 3 # 客户端重试最大次数，默认35
     hbase.client.operation.timeout: 30000 # 客户端发起一次操作数据请求直至得到响应之间的总超时时间，可能包含多个RPC请求，默认为2min
