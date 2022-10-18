@@ -2,9 +2,11 @@ package com.xinchen.project.core.orm.mybatis.entity;
 
 
 import java.io.Serializable;
+import javax.persistence.Table;
 
 /**
  */
+@Table(name = "app_phone")
 public class Phone implements Serializable {
   private Long userId;
   private String phone;
