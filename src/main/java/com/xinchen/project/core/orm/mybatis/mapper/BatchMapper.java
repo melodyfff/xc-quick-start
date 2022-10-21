@@ -3,6 +3,7 @@ package com.xinchen.project.core.orm.mybatis.mapper;
 import com.xinchen.project.core.orm.mybatis.entity.Address;
 import org.apache.ibatis.annotations.Mapper;
 import tk.mybatis.mapper.additional.insert.InsertListMapper;
+import tk.mybatis.mapper.common.example.SelectByExampleMapper;
 
 /**
  *
@@ -12,6 +13,6 @@ import tk.mybatis.mapper.additional.insert.InsertListMapper;
  * @since 1.0 Created In 2022/10/18 22:45
  **/
 @Mapper
-public interface BatchMapper extends InsertListMapper<Address> {
+public interface BatchMapper extends SelectByExampleMapper<Address>,InsertListMapper<Address> {
 
 }

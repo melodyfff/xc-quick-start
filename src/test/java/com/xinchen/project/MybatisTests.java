@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.StopWatch;
+import tk.mybatis.mapper.entity.Example;
 
 
 /**
@@ -43,7 +44,6 @@ public class MybatisTests {
         user.setUsername("ok");
         user.setPassword("ok");
         userMapper.insert(user);
-
     }
 
     @Test
@@ -62,6 +62,18 @@ public class MybatisTests {
         watch.stop();
 
         System.out.println("Cost:"+watch.getTotalTimeSeconds());
+    }
+
+    @Test
+    void testLikeSearch(){
+        Example example = new Example(Address.class);
+        example.createCriteria()
+            .andLike("userId","%1")
+            .andLike("address", "%ests-1%");
+
+
+        List<Address> addresses = batchMapper.selectByExample(example);
+        System.out.println(addresses);
     }
 
     @Test
