@@ -1,0 +1,8 @@
+spring:
+  task:
+    scheduling: # 任务调度执行线程，默认单线程
+      pool:
+        size: 1
+      thread-name-prefix: scheduling-
+    execution: # 任务执行线程，异步并行执行，依赖@Async注解
+      thread-name-prefix: task-

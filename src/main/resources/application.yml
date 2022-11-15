@@ -17,6 +17,8 @@ spring:
   profiles:
     active: normal
     group:
+      schedule:
+        - schedule
       dev:
         - datasource-mysql
         - mybatis
