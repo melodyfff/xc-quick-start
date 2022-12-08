@@ -24,8 +24,10 @@ spring:
         - mybatis
       hbase:
         - hbase
-      redis:
+      redis-redisson:
         - redis-redisson
+      redisson-client:
+        - redis
       cache-simple:
         - cache-simple
       cache-redis:
