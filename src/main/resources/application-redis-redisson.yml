@@ -1,0 +1,52 @@
+spring:
+  redis:
+    database: 0
+    host: 192.168.0.105
+    port: 6379
+    connect-timeout: 30S
+    lettuce:  # 连接池
+      pool:
+        max-active: 8 # 最大连接数
+        max-wait: -1  # 最大阻塞等待时间(负数表示没限制)
+        min-idle: 0   # 最小空闲
+        max-idle: 8   # 最大空闲
+    redisson:
+      # file: classpath:redisson-single.yaml
+      config: |
+        # 单机
+        singleServerConfig:
+          idleConnectionTimeout: 10000
+          connectTimeout: 10000
+          timeout: 3000
+          retryAttempts: 3
+          retryInterval: 1500
+          password: null
+          subscriptionsPerConnection: 5
+          clientName: xc-redission
+          address: "redis://${spring.redis.host}:${spring.redis.port}"
+          subscriptionConnectionMinimumIdleSize: 1
+          subscriptionConnectionPoolSize: 50
+          connectionMinimumIdleSize: 24
+          connectionPoolSize: 64
+          database: 1
+          dnsMonitoringInterval: 5000
+        codec: !<org.redisson.codec.JsonJacksonCodec> {}
+        threads: 16        # 所有Redis节点客户端之间共享的线程数量，默认值: 当前处理核数量 * 2
+        nettyThreads: 32   # Netty线程池数量，默认值: 当前处理核数量 * 2
+        transportMode: NIO # 传输模式，默认值：NIO
+        
+        # 集群
+        # clusterServersConfig:
+        #   nodeAddresses: 
+        #   - "redis://10.210.13.203:6381"
+        #   - "redis://10.210.13.203:6382"
+        #   - "redis://10.210.13.203:6383"
+        #   password: null
+        #   loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> {}
+        #   slaveConnectionMinimumIdleSize: 8
+        #   slaveConnectionPoolSize: 16
+        #   sslEnableEndpointIdentification: false
+        #   timeout: 3000
+        # threads: 16        # 所有Redis节点客户端之间共享的线程数量，默认值: 当前处理核数量 * 2
+        # nettyThreads: 32   # Netty线程池数量，默认值: 当前处理核数量 * 2
+        # transportMode: NIO # 传输模式，默认值：NIO        

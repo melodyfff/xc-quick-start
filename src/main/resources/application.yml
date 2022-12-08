@@ -24,4 +24,11 @@ spring:
         - mybatis
       hbase:
         - hbase
+      redis:
+        - redis-redisson
+      cache-simple:
+        - cache-simple
+      cache-redis:
+        - cache-redis
+        - redis
       normal: # 轻量级只包含web

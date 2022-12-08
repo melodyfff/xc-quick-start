@@ -1,0 +1,28 @@
+# https://github.com/redisson/redisson/wiki/2.-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95#24-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F
+---
+clusterServersConfig:
+  idleConnectionTimeout: 10000
+  connectTimeout: 10000
+  timeout: 3000
+  retryAttempts: 3
+  retryInterval: 1500
+  password: null
+  subscriptionsPerConnection: 5
+  clientName: null
+  loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> {}
+  slaveSubscriptionConnectionMinimumIdleSize: 1
+  slaveSubscriptionConnectionPoolSize: 50
+  slaveConnectionMinimumIdleSize: 32
+  slaveConnectionPoolSize: 64
+  masterConnectionMinimumIdleSize: 32
+  masterConnectionPoolSize: 64
+  readMode: "SLAVE"
+  nodeAddresses:
+    - "redis://127.0.0.1:7004"
+    - "redis://127.0.0.1:7001"
+    - "redis://127.0.0.1:7000"
+  scanInterval: 1000
+codec: !<org.redisson.codec.JsonJacksonCodec> {}
+threads: 0        # 所有Redis节点客户端之间共享的线程数量，默认值: 当前处理核数量 * 2
+nettyThreads: 0   # Netty线程池数量，默认值: 当前处理核数量 * 2
+"transportMode":"NIO" # 传输模式，默认值：NIO

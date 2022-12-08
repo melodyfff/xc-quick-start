@@ -1,0 +1,17 @@
+#  public enum CacheType {
+#    GENERIC, // 使用的SimpleCacheManager(自己手动指定Cache，可任意类型Cache实现哦)
+#    JCACHE, // 使用org.springframework.cache.jcache.JCacheCacheManager
+#    EHCACHE, // 使用org.springframework.cache.ehcache.EhCacheCacheManager
+#    HAZELCAST, // 使用com.hazelcast.spring.cache.HazelcastCacheManager
+#    INFINISPAN, // 使用org.infinispan.spring.provider.SpringEmbeddedCacheManager
+#    COUCHBASE, // 使用com.couchbase.client.spring.cache.CouchbaseCacheManager
+#    REDIS, // 使用org.springframework.data.redis.cache.RedisCacheManager，依赖于RedisTemplate进行操作
+#    CAFFEINE, // 使用org.springframework.cache.caffeine.CaffeineCacheManager
+#    @Deprecated
+#    GUAVA, // 使用org.springframework.cache.guava.GuavaCacheManager，已经过期不推荐使用了
+#    SIMPLE, // 使用ConcurrentMapCacheManager
+#    NONE; // 使用NoOpCacheManager，表示禁用缓存
+#  }
+spring:
+  cache:
+    type: simple
