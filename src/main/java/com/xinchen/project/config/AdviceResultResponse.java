@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @date Created In 2022/8/14 13:39
  */
 @RestControllerAdvice
-public class ResultResponseAdvice implements ResponseBodyAdvice<Object> {
+public class AdviceResultResponse implements ResponseBodyAdvice<Object> {
 
   @Override
   public boolean supports(MethodParameter returnType,

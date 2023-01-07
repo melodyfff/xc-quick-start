@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date Created In 2022/8/14 13:46
  */
 @ControllerAdvice
-public class ExceptionControllerAdvice {
+public class AdviceExceptionController {
 
-  private static final Logger log = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
+  private static final Logger log = LoggerFactory.getLogger(AdviceExceptionController.class);
 
   /**
    * Handle exception result.

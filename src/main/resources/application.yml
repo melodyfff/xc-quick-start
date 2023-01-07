@@ -24,6 +24,8 @@ spring:
         - mybatis
       hbase:
         - hbase
+      mongo:
+        - mongo
       redis-redisson:
         - redis-redisson
       redisson-client:
