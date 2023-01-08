@@ -26,6 +26,8 @@ spring:
         - hbase
       mongo:
         - mongo
+      mongo-multiple:
+        - mongo-multiple
       redis-redisson:
         - redis-redisson
       redisson-client:
