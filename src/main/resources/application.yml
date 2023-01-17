@@ -22,6 +22,9 @@ spring:
       dev:
         - datasource-mysql
         - mybatis
+      pre:
+        - datasource-mysql
+        - jpa
       hbase:
         - hbase
       mongo:

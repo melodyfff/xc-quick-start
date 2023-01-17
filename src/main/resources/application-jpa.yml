@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # 指定mysql默认engine 为 InnoDB ，如果不指定默认为MyISAM
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 1000
+          batch_versioned_data: true
+          order_inserts: true
+          order_updates: true
