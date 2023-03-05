@@ -27,6 +27,7 @@ spring:
       # earliest ：在偏移量无效的情况下，消费者将从起始位置读取分区的记录
       # max-poll-records: 20 # 批量拉取
       # auto-offset-reset: earliest
+      max-poll-records: 20
     admin:
       client-id: ADMIN-CLIENT-ID
       fail-fast: true # broker不能使用的时候，启动失败，默认false
