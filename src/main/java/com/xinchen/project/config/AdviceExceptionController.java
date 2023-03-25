@@ -1,5 +1,6 @@
 package com.xinchen.project.config;
 
+import java.util.concurrent.TimeoutException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
@@ -108,5 +109,12 @@ public class AdviceExceptionController {
   public Result<String>  handleConstraintViolationException(ConstraintViolationException e) {
     log.error("Global-ConstraintViolationException: ",e);
     return Result.fail(ResultResponseEnum.VALIDATE_FAILED.getCode(),e.getMessage());
+  }
+
+  @ExceptionHandler({TimeoutException.class})
+  @ResponseBody
+  public Result<String>  handleTimeoutExceptionException(TimeoutException e) {
+    log.error("Global-TimeoutException: ",e);
+    return Result.fail(-1,"Task Run Timeout: "+e.getMessage());
   }
 }
